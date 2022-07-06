@@ -8,12 +8,16 @@
 
       </template>
     </MsCombobox>
+
+    <input class="mt-16" type="date" name="begin" placeholder="dd-mm-yyyy" :value="valueDate" min="1960-01-01"
+      max="2050-12-31" @change="changeInputHandler($event)">
   </main>
 </template>
 <script setup>
 import TheWelcome from '@/components/TheWelcome.vue';
 import MsCombobox from '@/components/base/MsCombobox.vue';
 import EmployeeAPI from '@/apis/EmployeeAPI.js';
+import moment from "moment";
 </script>
 
  <script type="text/javascript">
@@ -31,20 +35,32 @@ export default {
         { name: 'Spider', id: 'spider' },
         { name: 'Unicorn', id: 'unicorn' }
       ],
-      selected: { name: null, id: null }
+      selected: { name: null, id: null },
+      valueDate: "",
     }
   },
   created() {
     this.getEmployee();
   },
   methods: {
+    changeInputHandler(event) {
+      if (event.target && event.target.value) {
+
+        this.valueDate = event.target.value;
+      }
+    },
     getEmployee() {
       EmployeeAPI.getTest().then(res => {
         // xử lý khi api trả về dữ liệu ở đây
-        debugger
+        console.log("api trả về thành công");
+
+        // giả sử server trả về date ở đây
+        const dataDateFromServer = "2022-07-09";
+        // format lại đúng định dạng "YYYY-MM-DD" thì control input mới hiển thị được giá trị
+        this.valueDate = moment(dataDateFromServer).format("YYYY-MM-DD");
       }, err => {
         console.log("có lỗi xảy ra");
-        debugger
+
 
       });
     },
@@ -69,5 +85,9 @@ export default {
  <style lang="scss" scoped>
  .nvcuong1 {
    height: 32px;
+ }
+ 
+ .mt-16 {
+   margin-top: 16px;
  }
  </style>
