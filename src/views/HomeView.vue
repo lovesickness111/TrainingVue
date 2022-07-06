@@ -8,9 +8,9 @@
 
       </template>
     </MsCombobox>
-
+    <!-- control chọn ngày tháng -->
     <input class="mt-16" type="date" name="begin" placeholder="dd-mm-yyyy" :value="valueDate" min="1960-01-01"
-      max="2050-12-31" @change="changeInputHandler($event)">
+      max="2050-12-31" @change="changeInputDateHandler($event)">
   </main>
 </template>
 <script setup>
@@ -43,7 +43,11 @@ export default {
     this.getEmployee();
   },
   methods: {
-    changeInputHandler(event) {
+    /**
+     * xử lý thay đổi giá trị date
+     * @param {*} event 
+     */
+    changeInputDateHandler(event) {
       if (event.target && event.target.value) {
 
         this.valueDate = event.target.value;
@@ -56,7 +60,7 @@ export default {
 
         // giả sử server trả về date ở đây
         const dataDateFromServer = "2022-07-09";
-        // format lại đúng định dạng "YYYY-MM-DD" thì control input mới hiển thị được giá trị
+        // format lại đúng định dạng "YYYY-MM-DD" thì control input mới hiển thị được giá trị, dùng thư viện moment.js
         this.valueDate = moment(dataDateFromServer).format("YYYY-MM-DD");
       }, err => {
         console.log("có lỗi xảy ra");
