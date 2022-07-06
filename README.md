@@ -31,3 +31,4 @@ Trong Demo này anh có sử dụng các Best Practices sau:
 - Dùng vue router + lazy load. Anh em xem tại file src/router/index.js
 - Sử dụng BaseAPI, tất cả lời gọi lên server sẽ chạy qua đây. Để dùng thử, anh em xem tại file EmployeeAPI.js
 - Xây dựng MsCombobox: dropdown có thể tìm kiếm, custom nội dung. 
+- Dùng moment.js để format date + viết control chọn ngày tháng
