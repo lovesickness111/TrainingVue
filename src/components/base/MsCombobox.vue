@@ -81,6 +81,13 @@ export default {
             this.selected = option;
             this.optionsShown = false;
             this.searchFilter = this.selected.name;
+            const arr = ['a', 'b', 'c'];
+            arr.forEach((element, index) => {
+                // gọi hàm tìm kiếm
+                // tự sinh mã
+                console.log(element);
+            });
+            this.logSelect(option);
             this.$emit('selected', this.selected);
         },
         showOptions() {
@@ -103,6 +110,9 @@ export default {
         keyMonitor: function (event) {
             if (event.key === "Enter" && this.filteredOptions[0])
                 this.selectOption(this.filteredOptions[0]);
+        },
+        logSelect(option){
+            console.log(option.name);
         }
     },
     watch: {
@@ -126,6 +136,8 @@ export default {
     margin: auto;
 
     .dropdown-input {
+        height: 40px;
+        padding-left: 8px;
         background: #fff;
         cursor: pointer;
         border: 1px solid #e7ecf5;

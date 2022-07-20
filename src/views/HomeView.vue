@@ -1,21 +1,27 @@
 
 <template>
-  <main>
+  <main id="Home-view">
     <MsCombobox :options="options" v-on:selected="validateSelection" v-on:filter="getDropdownValues" :disabled="false"
-      name="zipcode" :maxItem="10" placeholder="Please select an option">
+      class="ms-combo-custom" name="zipcode" :maxItem="10" placeholder="Please select an option">
       <template v-slot:itemDropdown="slotData">
-        <div class="nvcuong1" @click="showItem(slotData)">nvcuong1 custom: {{ slotData.data.name }}</div>
+        <div class="nvcuong1" @click="showItem(slotData)">nvcuong2 custom: {{ slotData.data.name }}</div>
 
       </template>
     </MsCombobox>
-    <!-- control chọn ngày tháng -->
+    <!-- control chọn ngày tháng bằng input thuần-->
     <input class="mt-16" type="date" name="begin" placeholder="dd-mm-yyyy" :value="valueDate" min="1960-01-01"
       max="2050-12-31" @change="changeInputDateHandler($event)">
+
+    <!-- sử dụng ms-date bằng cách dùng thư viện dx-->
+    <ms-date class="mt-16" :labelMode="'hidden'" :stylingMode="'outlined'" :value="new Date()" @onValueChanged="onDateBoxChanged">
+
+    </ms-date>
   </main>
 </template>
 <script setup>
 import TheWelcome from '@/components/TheWelcome.vue';
 import MsCombobox from '@/components/base/MsCombobox.vue';
+import MsDate from '@/components/base/MsDate.vue';
 import EmployeeAPI from '@/apis/EmployeeAPI.js';
 import moment from "moment";
 </script>
@@ -24,6 +30,10 @@ import moment from "moment";
 export default {
 
   name: 'HomeView',
+  components: {
+    MsCombobox,
+    MsDate
+  },
   data() {
     return {
       options: [
@@ -80,18 +90,39 @@ export default {
     // sự kiện bấm vào 1 item custom
     showItem(slotData) {
       console.log(slotData);
+    },
+    /**
+     * khi giá trị datebox thay đổi
+     * @param {*} e data thay đổi
+     */
+    onDateBoxChanged(e) {
+      console.log("thay đổi ngày tháng");
     }
   }
 
 }
 </script>
 
- <style lang="scss" scoped>
- .nvcuong1 {
-   height: 32px;
- }
+ <style lang="scss">
+ #Home-view {
+   .nvcuong1 {
+     height: 32px;
+   }
  
- .mt-16 {
-   margin-top: 16px;
+   .mt-16 {
+     margin-top: 16px;
+   }
+ 
+   // đặt bookmark: Ctrl Alt K
+   // next bookmark: ctrl alt L
+   // previous bookmark: ctrl alt J
+ 
+   // previous pointer: alt <
+   // previous pointer: alt >
+   .ms-combo-custom {
+     margin-right: 32px;
+ 
+   }
  }
  </style>
+
