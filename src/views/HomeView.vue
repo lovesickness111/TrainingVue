@@ -13,26 +13,47 @@
       max="2050-12-31" @change="changeInputDateHandler($event)">
 
     <!-- sử dụng ms-date bằng cách dùng thư viện dx-->
-    <ms-date class="mt-16" :labelMode="'hidden'" :stylingMode="'outlined'" :value="new Date()" @onValueChanged="onDateBoxChanged">
+    <ms-date class="mt-16" :labelMode="'hidden'" :stylingMode="'outlined'" :value="new Date()"
+      @onValueChanged="onDateBoxChanged">
 
     </ms-date>
+
+    <button class="mt-16"  @click="showItem($event)">Open Popup</button>
+
+    <!-- <MsPopup id="popup" v-if="visiblePopup" :visible="visiblePopup" :width="'80vw'" :height="'80vh'" @hidden="visiblePopup = false"> -->
+    <MsPopup id="popup" v-if="visiblePopup">
+      <template v-slot:popup-content="slotData">
+        <div class="iframe-wrapper">
+          <div class="iframe-loading" v-if="iframeLoading">
+            {{slotData}}
+          </div>
+          <MsIFrame ref="iframeEl" :style="{ 'display': iframeLoading ? 'none' : 'block' }" :src="srcIframe"
+            @load="onLoad" @iframe-load="onIframeLoad" frameborder="0" gesture="media" allow="encrypted-media"
+            sandbox="allow-same-origin allow-scripts">
+
+          </MsIFrame>
+        </div>
+      </template>
+    </MsPopup>
   </main>
 </template>
-<script setup>
+<script>
 import TheWelcome from '@/components/TheWelcome.vue';
 import MsCombobox from '@/components/base/MsCombobox.vue';
 import MsDate from '@/components/base/MsDate.vue';
+import MsIFrame from '@/components/base/MsIFrame.vue';
 import EmployeeAPI from '@/apis/EmployeeAPI.js';
 import moment from "moment";
-</script>
+import  MsPopup  from '@/components/base/MsPopup.vue';
 
- <script type="text/javascript">
 export default {
 
   name: 'HomeView',
   components: {
     MsCombobox,
-    MsDate
+    MsDate,
+    MsIFrame,
+    MsPopup
   },
   data() {
     return {
@@ -47,12 +68,24 @@ export default {
       ],
       selected: { name: null, id: null },
       valueDate: "",
+      srcIframe: "http://localhost:3000/",
+      iframeLoading: true,
+      visiblePopup: false
     }
   },
   created() {
     this.getEmployee();
   },
   methods: {
+    onLoad() {
+      console.log('iframe loaded');
+
+      this.iframeLoading = false;
+    },
+    onIframeLoad() {
+      console.log('iframe loaded');
+    }
+    ,
     /**
      * xử lý thay đổi giá trị date
      * @param {*} event 
@@ -89,7 +122,7 @@ export default {
     },
     // sự kiện bấm vào 1 item custom
     showItem(slotData) {
-      console.log(slotData);
+      this.visiblePopup = true;
     },
     /**
      * khi giá trị datebox thay đổi
@@ -122,6 +155,21 @@ export default {
    .ms-combo-custom {
      margin-right: 32px;
  
+   }
+ }
+ 
+ .iframe-wrapper {
+   border: 1px solid gray;
+   height: 600px;
+ 
+   .ms-iframe {
+     height: 100%;
+     width: 100%;
+ 
+     iframe {
+       height: 100%;
+       width: 100%;
+     }
    }
  }
  </style>
