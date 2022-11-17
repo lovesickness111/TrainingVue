@@ -65,10 +65,83 @@ body {
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@for $i from 1 through 300 {
+  .m-t-#{$i} {
+    margin-top: #{$i}px;
+  }
+  .m-r-#{$i} {
+    margin-right: #{$i}px;
+  }
+  .m-b-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .m-l-#{$i} {
+    margin-left: #{$i}px;
+  }
+  .m-#{$i} {
+    margin: #{$i}px;
+  }
+
+  .p-t-#{$i} {
+    padding-top: #{$i}px;
+  }
+  .p-r-#{$i} {
+    padding-right: #{$i}px;
+  }
+  .p-b-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .p-l-#{$i} {
+    padding-left: #{$i}px;
+  }
+  .p-#{$i} {
+    padding: #{$i}px;
+  }
+
+  .w-#{$i} {
+    width: #{$i}px;
+  }
+  .h-#{$i} {
+    height: #{$i}px;
+  }
+}
+
+.d-flex {
+  display: flex;
+}
+.flex-c-m {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.align-items-center {
+  align-items: center;
+}
+
+#header {
+  .header-title {
+    font-size: 24px;
+    .header-span {
+      font-weight: 500;
+      &:hover {
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

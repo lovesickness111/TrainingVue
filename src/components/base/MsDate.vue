@@ -1,7 +1,7 @@
 
 <template>
-    <DxDateBox class="ms-date-box" :styling-mode="stylingMode" :label-mode="labelMode" width="100%" :value="value"
-        :display-format="displayFormat" placeholder="Chọn ngày" label="Tiêu đề" @value-changed="onValueChanged">
+    <DxDateBox class="ms-date-box" :styling-mode="stylingMode" :label-mode="labelMode" :width="'100%'" :value="value"
+        :display-format="displayFormat" placeholder="Chọn ngày và tháng" label="Tiêu đề" @value-changed="onValueChanged">
         <DxValidator>
             <DxRequiredRule />
         </DxValidator>

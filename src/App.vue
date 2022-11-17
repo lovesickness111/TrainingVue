@@ -21,7 +21,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 </template>
 
 <style>
-@import '@/assets/base.css';
+
 
 #app {
   max-width: 1280px;
@@ -37,7 +37,7 @@ header {
 }
 
 .logo {
-  display: block;
+  display: hidden;
   margin: 0 auto 2rem;
 }
 
